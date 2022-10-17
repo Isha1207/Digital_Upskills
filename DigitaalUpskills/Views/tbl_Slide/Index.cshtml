@@ -1,0 +1,47 @@
+﻿@model IEnumerable<DigitaalUpskills.Models.tbl_Slide>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a class="btn btn-primary glyphicon glyphicon-pencil" href="@Url.Action("Create","tbl_Slide")"> Create New </a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Course Name
+        </th>
+        <th>
+            Slide Name
+        </th>
+        <th>
+            Slide Detail
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var Slide in Model)
+    {
+        <tr>
+            <td>
+                @Slide.tbl_Course.Course_Name
+            </td>
+            <td>
+                @Slide.Slide_Name
+            </td>
+            <td>
+                @Slide.Slide_Detail
+            </td>
+            <td>
+                <a class="btn btn-primary glyphicon glyphicon-edit" href="@Url.Action("Edit", "tbl_Slide" , new{id= Slide.Slide_Id})"> Edit </a>
+                <a class="btn btn-primary glyphicon glyphicon-book" href="@Url.Action("Details", "tbl_Slide" , new{id= Slide.Slide_Id})"> Detail </a>
+                <a class="btn btn-primary glyphicon glyphicon-trash" href="@Url.Action("Delete", "tbl_Slide" , new{id= Slide.Slide_Id})"> Delete </a>
+            </td>
+        </tr>
+    }
+
+</table>

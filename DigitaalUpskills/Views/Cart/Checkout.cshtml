@@ -1,0 +1,157 @@
+@using DigitaalUpskills.Models;
+@using DigitaalUpskills.Utills;
+
+@{
+    Layout = "~/views/shared/_LayoutUser.cshtml";
+    List<tbl_Course> list = new List<tbl_Course>();
+    if (Session["cart"] != null)
+    {
+        list = (List<tbl_Course>)Session["cart"];
+
+    }
+    int indexno = -1;
+
+    tbl_Student student = CurrentUser.CurrentStudent;
+}
+<section class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="content">
+                    <h1 class="page-name">Checkout</h1>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">Home</a></li>
+                        <li class="active">checkout</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="page-wrapper">
+    <div class="checkout shopping">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="block billing-details">
+                        <h4 class="widget-title">Billing Details</h4>
+                        <form class="checkout-form">
+                            <div class="form-group">
+                                <label for="full_name">Full Name</label>
+                                <input readonly name=" Name" value=" @student.Student_Name" type="text" class="form-control" id="full_name" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="user_address">CNIC</label>
+                                <input readonly  value="@student.Student_CNIC" type="text" class="form-control" id="user_cnic" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="user_address">Phone No</label>
+                                <input readonly value="@student.Student_PhoneNo" type="text" class="form-control" id="user_phoneno" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="user_address">Email Address</label>
+                                <input readonly  value="@student.Student_Gmail" type="text" class="form-control" id="user_address" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="user_address">Address</label>
+                                <input readonly  value="@student.Student_Address" type="text" class="form-control" id="user_address" placeholder="">
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="block">
+                        <h4 class="widget-title">Payment Method</h4>
+                      
+                        <div class="checkout-product-details">
+                            <div class="payment">
+                                <div class="card-details">
+                                    <form action="/Cart/CourseRegistered" method="post" class="checkout-form">
+                                        <div class="d-block my-3">
+                                            <div class="custom-control custom-radio">
+                                                <input id="credit" name="Payment_Mode" value="Credit_Card" type="radio" class="custom-control-input" checked required />
+                                                <label class="custom-control-label" for="credit">Credit Card</label>
+                                            </div>
+                                        </div> <div class="d-block my-3">
+                                            <div class="custom-control custom-radio">
+                                                <input id="debit" name="Payment_Mode" value="Debit_Card" type="radio" class="custom-control-input" checked required />
+                                                <label class="custom-control-label" for="debit">Debit Card</label>
+                                            </div>
+                                        </div> 
+                                        <div class="d-block my-3">
+                                            <div class="custom-control custom-radio">
+                                                <input id="paypal" name="Payment_Mode" value="PayPal" type="radio" class="custom-control-input" checked required />
+                                                <label class="custom-control-label" for="paypal">PayPal</label>
+                                            </div>
+                                        </div>
+
+                                        <input type="submit" class="btn btn-primary" value="Place Order"></a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-checkout-details">
+                        <div class="block">
+                            <h4 class="widget-title">Order Summary</h4>
+                            @foreach (var item in list)
+                            {
+                                indexno++;
+
+                                <div class="media product-card">
+                                    <a class="pull-left" href="product-single.html">
+                                        <img class="media-object" src="images/shop/cart/cart-1.jpg" alt="Image" />
+                                    </a>
+                                    <div class="media-body">
+                                        <img class=" media-object" src=" @item.Course_Image " alt=" Image" />
+
+                                        <h4 class="media-heading"> Course Name</h4><a href="product-single.html">@item.Course_Name</a>
+                                        <p class="price">@item.Course_Fee</p>
+                                        <span class="remove">Remove</span>
+                                    </div>
+                                </div>
+                            }
+                                <div class="discount-code">
+                                    <p>Have a discount ? <a data-toggle="modal" data-target="#coupon-modal" href="#!">enter it here</a></p>
+                                </div>
+                                <ul class="summary-prices">
+                                    <li>
+                                        <span>Subtotal:</span>
+                                        <span class="price">@*@tota*@l</span>
+                                    </li>
+                                    <li>
+                                        <span>Shipping:</span>
+                                        <span>Free</span>
+                                    </li>
+                                </ul>
+                                <div class="summary-total">
+                                    <span>Total</span>
+                                    <span>$250</span>
+                                </div>
+                                <div class="verified-icon">
+                                    <img src="images/shop/verified.png">
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="coupon-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Enter Coupon Code">
+                    </div>
+                    <button type="submit" class="btn btn-main">Apply Coupon</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

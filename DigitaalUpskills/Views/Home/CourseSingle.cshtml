@@ -1,0 +1,58 @@
+@using DigitaalUpskills.Models
+
+@{ Layout = "~/views/shared/_LayoutUser.cshtml";
+    Model1 db = new Model1();
+    }
+
+	
+<section class="single-product">
+
+    @foreach (var item in db.tbl_Course)
+    {
+
+        <div class="container">
+
+        </div>
+        <div class="row mt-20">
+            <div class="col-md-5">
+                <div class="single-product-slider">
+                    <div id='carousel-custom' class='carousel slide' data-ride='carousel'>
+                        <div class='carousel-outer'>
+                            <!-- me art lab slider -->
+                            <div class='carousel-inner '>
+                                <div class='item active'>
+                                    <img src='@Url.Content(item.Course_Image)' alt='' data-zoom-image="images/shop/single-products/product-1.jpg" />
+                                </div>
+                           
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="single-product-details">
+                    <h2>@item.Course_Name</h2>
+                    <p class="product-detail">@item.Course_Code</p>
+                    <p class="product-detail">@item.Course_Duration</p>
+                    <p class="product-price">@item.Course_Fee</p>
+
+                    <p class="product-description mt-20">
+                        @item.Course_Detail
+                    </p>
+                  
+                    <div class="product-category">
+                        <span>@item.tbl_CourseCategory.CourseCategory_Name</span>
+                        <ul>
+                            <li><a href="product-single.html">Products</a></li>
+                            <li><a href="product-single.html">Soap</a></li>
+                        </ul>
+                    </div>
+                    <a href="@Url.Action("AddToCart", "Cart", new { id = item.Course_Id })" class="btn btn-primary mt-20">Add To Cart</a>
+                </div>
+            </div>
+        </div>
+     
+    }
+</section>
+	
